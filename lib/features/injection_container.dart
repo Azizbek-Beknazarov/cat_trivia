@@ -9,10 +9,12 @@ import 'package:cat_trivia/features/presentation/bloc/cat_bloc.dart';
 import 'package:cat_trivia/features/presentation/bloc/image_bloc/image_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/network/network_info.dart';
 import 'package:http/http.dart' as http;
 
+import 'data/datasourse/cat_local_ds.dart';
 import 'data/datasourse/image_remote_ds.dart';
 import 'domain/usecase/image_usecase.dart';
 
@@ -33,7 +35,7 @@ Future<void> init() async {
 
   //repo
   sl.registerLazySingleton<CatRepo>(
-    () => CatRepoImpl(remoteDS: sl(), info: sl()),
+    () => CatRepoImpl(remoteDS: sl(), info: sl(), localDS: sl()),
   );
   sl.registerLazySingleton<ImageRepo>(
         () => ImageRepoImpl(remoteDS: sl(), info: sl()),
@@ -43,11 +45,15 @@ Future<void> init() async {
   sl.registerLazySingleton<CatRemoteDataSource>(
     () => CatRemoteDataSourceImple(client: sl()),
   );
+  sl.registerLazySingleton<CatLocalDataSource>(() =>CatLocalDataSourceImpl(preferences: sl()) );
   sl.registerLazySingleton<ImageRemoteDataSource>(
     () => ImageRemoteDataSourceImpl(client: sl()),
   );
 
   //external
+
+  final sharedPreferences = await SharedPreferences.getInstance();
+  sl.registerLazySingleton(() => sharedPreferences);
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 
   sl.registerLazySingleton(() => http.Client());

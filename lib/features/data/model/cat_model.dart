@@ -11,7 +11,7 @@ class CatModel extends CatEntity {
   Map<dynamic, dynamic> toJson() {
     return {
       'text': text,
-      'createdAt': createdAt,
+      'createdAt': createdAt?.toIso8601String(),
     };
   }
 }

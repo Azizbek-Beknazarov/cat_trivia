@@ -10,7 +10,10 @@ abstract class CatStates extends Equatable {
 
 class CatInitialState extends CatStates {}
 
-class CatLoadingState extends CatStates {}
+class CatLoadingState extends CatStates {
+
+}
+
 class CatLoadedState extends CatStates {
   final List<CatEntity> loaded;
 
@@ -19,6 +22,7 @@ class CatLoadedState extends CatStates {
   @override
   List<Object> get props => [loaded];
 }
+
 class CatErrorState extends CatStates {
   final String message;
 
@@ -27,6 +31,7 @@ class CatErrorState extends CatStates {
   @override
   List<Object> get props => [message];
 }
+
 class CatLoadedOneState extends CatStates {
   final CatEntity loaded;
 
