@@ -1,4 +1,5 @@
 import 'package:cat_trivia/features/domain/entity/cat_entity.dart';
+
 import 'package:cat_trivia/features/presentation/bloc/cat_bloc.dart';
 import 'package:cat_trivia/features/presentation/bloc/cat_event.dart';
 import 'package:cat_trivia/features/presentation/bloc/cat_state.dart';
@@ -6,24 +7,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-
-import 'another_fact.dart';
-
-class CatsPage extends StatefulWidget {
-  const CatsPage({Key? key}) : super(key: key);
+class AnotherFact extends StatefulWidget {
+  const AnotherFact({Key? key}) : super(key: key);
 
   @override
-  State<CatsPage> createState() => _CatsPageState();
+  State<AnotherFact> createState() => _AnotherFactState();
 }
 
-class _CatsPageState extends State<CatsPage> {
-  List<CatEntity> facts = [];
-
+class _AnotherFactState extends State<AnotherFact> {
+  CatEntity onefacts = CatEntity(text: 'a', createdAt: null);
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<CatBloc>(context, listen: false).add(CatGetEvent(facts));
+    BlocProvider.of<CatBloc>(context, listen: false)
+        .add(CatGetOneEvent(onefacts));
     return BlocBuilder<CatBloc, CatStates>(builder: (context, state) {
+
       if (state is CatLoadingState) {
         return Scaffold(
           body: Column(
@@ -36,8 +35,8 @@ class _CatsPageState extends State<CatsPage> {
             ],
           ),
         );
-      } else if (state is CatLoadedState) {
-        facts = state.loaded;
+      } else if (state is CatLoadedOneState) {
+        onefacts = state.loaded;
       } else if (state is CatErrorState) {
         return Column(
           children: [
@@ -48,27 +47,14 @@ class _CatsPageState extends State<CatsPage> {
           ],
         );
       }
-
       return Scaffold(
-        appBar: AppBar(centerTitle: true,
-          title: Text('Cat facts'),
+        appBar: AppBar(
+          title: Text("One cat fact "),
         ),
-        body: Padding(
-          padding: EdgeInsets.all(8),
-          child: ListView.builder(
-              itemCount: facts.length,
-              itemBuilder: (context, index) {
-                String formattedDate = DateFormat('dd/MM/yyyy').format(facts[index].createdAt!);
-                return ListTile(
-                  leading: Image.network('https://cataas.com/cat'),
-                  title: Text(facts[index].text),
-                  subtitle: Text(formattedDate),
-                );
-              }),
+        body: ListTile(
+          title: Text(onefacts.text),
+          subtitle: Text( DateFormat('dd/MM/yyyy').format(onefacts.createdAt!)),
         ),
-        floatingActionButton: FloatingActionButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>AnotherFact()));
-        },child:  Text('One'),),
       );
     });
   }

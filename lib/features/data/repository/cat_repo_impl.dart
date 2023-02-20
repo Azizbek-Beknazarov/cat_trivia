@@ -29,5 +29,19 @@ class CatRepoImpl implements CatRepo{
     }
   }
 
+  @override
+  Future<Either<Failure, CatEntity>> getOneFact()async {
+    if (await info.isConnected) {
+      try {
+        final result = await remoteDS.getOneFact();
+        return Right(result);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(ServerFailure());
+    }
+  }
+
 
 }

@@ -12,3 +12,8 @@ class CatGetEvent extends CatEvents {
 
   CatGetEvent(this.list);
 }
+class CatGetOneEvent extends CatEvents {
+  CatEntity list;
+
+  CatGetOneEvent(this.list);
+}

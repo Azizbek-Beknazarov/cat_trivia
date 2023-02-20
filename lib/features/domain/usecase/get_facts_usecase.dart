@@ -10,10 +10,7 @@ class GetFacts extends UseCase<List<CatEntity>, NoParams> {
   GetFacts({required this.repo});
 
   @override
-  Future<Either<Failure, List<CatEntity>>> call(NoParams params)async {
+  Future<Either<Failure, List<CatEntity>>> call(NoParams params) async {
     return await repo.getFacts();
   }
-
-
-
 }

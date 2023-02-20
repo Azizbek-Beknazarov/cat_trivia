@@ -5,4 +5,5 @@ import '../../../core/error/failures.dart';
 
 abstract class CatRepo {
   Future<Either<Failure, List<CatEntity>>> getFacts();
+  Future<Either<Failure, CatEntity>> getOneFact();
 }

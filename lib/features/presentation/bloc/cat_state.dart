@@ -27,3 +27,11 @@ class CatErrorState extends CatStates {
   @override
   List<Object> get props => [message];
 }
+class CatLoadedOneState extends CatStates {
+  final CatEntity loaded;
+
+  CatLoadedOneState({required this.loaded});
+
+  @override
+  List<Object> get props => [loaded];
+}
