@@ -1,4 +1,5 @@
 import 'package:cat_trivia/features/presentation/bloc/cat_bloc.dart';
+import 'package:cat_trivia/features/presentation/bloc/image_bloc/image_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'features/injection_container.dart' as di;
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => di.sl<CatBloc>()),
+          BlocProvider(create: (context) => di.sl<ImageBloc>()),
         ],
         child: MaterialApp(
           home: CatsPage(),
