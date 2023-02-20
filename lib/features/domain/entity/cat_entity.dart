@@ -2,8 +2,8 @@ import 'package:equatable/equatable.dart';
 
 class CatEntity extends Equatable{
 String text;
-DateTime updatedAt;
-CatEntity({required this.text,required this.updatedAt});
+DateTime createdAt;
+CatEntity({required this.text,required this.createdAt});
   @override
 
   List<Object?> get props =>[];

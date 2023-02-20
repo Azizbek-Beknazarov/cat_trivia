@@ -56,7 +56,7 @@ class _CatsPageState extends State<CatsPage> {
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Text(facts[index].text),
-                  subtitle: Text(facts[index].updatedAt.toString()),
+                  subtitle: Text(facts[index].createdAt.toString()),
                 );
               }),
         ),
